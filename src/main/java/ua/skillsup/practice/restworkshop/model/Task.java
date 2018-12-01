@@ -1,14 +1,35 @@
 package ua.skillsup.practice.restworkshop.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class Task {
 
+	@NotNull
+	@Size(min = 3, message = "Use at least 3 symbols for title!!!!!")
 	private String title;
 	private String description;
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm")
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	private LocalDateTime finishTime;
 	private List<SubTask> subTasks;
+
+	public Task() {
+		//for jackson
+	}
+
+	public Task(@NotNull @Size(min = 3, message = "Use at least 3 symbols for title!!!!!") String title,
+	            String description, LocalDateTime finishTime, List<SubTask> subTasks) {
+		this.title = title;
+		this.description = description;
+		this.finishTime = finishTime;
+		this.subTasks = subTasks;
+	}
 
 	public String getTitle() {
 		return title;
