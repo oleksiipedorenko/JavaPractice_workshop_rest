@@ -1,14 +1,29 @@
-package ua.skillsup.practice.restworkshop.model;
+package ua.skillsup.practice.restworkshop.repositories.entities;
 
+import ua.skillsup.practice.restworkshop.models.SubTask;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Task {
-
+@Entity
+public class TaskEntity {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String title;
 	private String description;
 	private LocalDateTime finishTime;
-	private List<SubTask> subTasks;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
+	private List<SubTaskEntity> subTasks;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;
@@ -34,21 +49,21 @@ public class Task {
 		this.finishTime = finishTime;
 	}
 
-	public List<SubTask> getSubTasks() {
+	public List<SubTaskEntity> getSubTasks() {
 		return subTasks;
 	}
 
-	public void setSubTasks(List<SubTask> subTasks) {
+	public void setSubTasks(List<SubTaskEntity> subTasks) {
 		this.subTasks = subTasks;
 	}
 
 	@Override
 	public String toString() {
-		return "Task{" +
-				"title='" + title + '\'' +
+		return "TaskEntity{" +
+				"id=" + id +
+				", title='" + title + '\'' +
 				", description='" + description + '\'' +
 				", finishTime=" + finishTime +
-				", subTasks=" + subTasks +
 				'}';
 	}
 }

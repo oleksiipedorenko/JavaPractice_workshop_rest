@@ -1,4 +1,4 @@
-package ua.skillsup.practice.restworkshop.model;
+package ua.skillsup.practice.restworkshop.models;
 
 public class SubTask {
 
